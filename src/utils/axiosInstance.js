@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3030/api",
+  baseURL: "digital-sonod-server-l6m5386sn.vercel.app/api",
   withCredentials: true,
 });
 
