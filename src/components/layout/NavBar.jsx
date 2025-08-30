@@ -64,8 +64,8 @@ export default function NavBar({ user, logout }) {
             {!user ? (
               <div className="hidden sm:flex sm:items-center">
                 <button
-                  onClick={() => handleNavClick("/")}
-                  className={`text-sm font-semibold mr-4 ${
+                  onClick={() => handleNavClick("/login")}
+                  className={`text-sm font-semibold mr-4 py-2 px-4 cursor-pointer ${
                     location.pathname === "/"
                       ? "text-orange-600 underline"
                       : "text-gray-800 hover:text-orange-600"
@@ -75,7 +75,7 @@ export default function NavBar({ user, logout }) {
                 </button>
                 <button
                   onClick={() => handleNavClick("/signup")}
-                  className={`text-sm font-semibold border px-4 py-2 rounded-lg ${
+                  className={`text-sm font-semibold border px-4 py-2 rounded-lg cursor-pointer ${
                     location.pathname === "/signup"
                       ? "text-orange-600 border-purple-600"
                       : "text-gray-800 hover:text-orange-600 hover:border-purple-600"
@@ -183,7 +183,7 @@ export default function NavBar({ user, logout }) {
                   <div className="flex justify-between items-center border-t-2 pt-2">
                     <button
                       onClick={() => handleNavClick("/login")}
-                      className="text-sm font-semibold mr-4 text-gray-800 hover:text-orange-600"
+                      className="text-sm font-semibold mr-4 px-4 py-1 text-gray-800 hover:text-orange-600"
                     >
                       Sign in
                     </button>

@@ -32,7 +32,7 @@ export default function App() {
   return (
     <div className="bg-gray-200">
       <BrowserRouter>
-        {user && <NavBar user={user} logout={logout} />}
+        {<NavBar user={user} logout={logout} />}
         <Routes>
           <Route
             path="/signup"
@@ -43,10 +43,7 @@ export default function App() {
             element={user ? <Navigate to={"/"} /> : <Login />}
           ></Route>
           <Route path="/forgetPass" element={<ForgetPass />} />
-          <Route
-            path="/"
-            element={user ? <Main /> : <Navigate to={"/login"} />}
-          />
+          <Route path="/" element={<Main />} />
 
           <>
             <Route
