@@ -182,7 +182,7 @@ export default function NavBar({ user, logout }) {
                 {!user ? (
                   <div className="flex justify-between items-center border-t-2 pt-2">
                     <button
-                      onClick={() => handleNavClick("/")}
+                      onClick={() => handleNavClick("/login")}
                       className="text-sm font-semibold mr-4 text-gray-800 hover:text-orange-600"
                     >
                       Sign in

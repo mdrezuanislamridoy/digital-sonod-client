@@ -39,13 +39,13 @@ export default function App() {
             element={user ? <Navigate to={"/"} /> : <Signup />}
           />
           <Route
-            path="/"
-            element={user ? <Navigate to={"/home"} /> : <Login />}
+            path="/login"
+            element={user ? <Navigate to={"/"} /> : <Login />}
           ></Route>
           <Route path="/forgetPass" element={<ForgetPass />} />
           <Route
-            path="/home"
-            element={user ? <Main /> : <Navigate to={"/"} />}
+            path="/"
+            element={user ? <Main /> : <Navigate to={"/login"} />}
           />
 
           <>
