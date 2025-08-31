@@ -4,6 +4,7 @@ const baseURL = "https://digital-sonod-server.vercel.app/api"; //"http://localho
 const axiosInstance = axios.create({
   baseURL: baseURL,
   withCredentials: true,
+  headers: { "Content-Type": "application/json" },
 });
 
 export default axiosInstance;
