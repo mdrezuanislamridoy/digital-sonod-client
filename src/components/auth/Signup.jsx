@@ -145,12 +145,11 @@ export default function Signup() {
         <select
           name="role"
           id="role"
-          value={formData.role}
           className="text-slate-600 bg-white py-2 px-4 outline-none border border-amber-300 rounded-full"
           required
         >
-          <option value="user">user</option>
-          <option value="chairman">chairman </option>
+          <option value={formData.role}>user</option>
+          <option value={formData.role}>chairman </option>
         </select>
         <button
           type="submit"
