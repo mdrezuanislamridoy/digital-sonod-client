@@ -145,6 +145,7 @@ export default function Signup() {
         <select
           name="role"
           id="role"
+          value={formData.role}
           className="text-slate-600 bg-white py-2 px-4 outline-none border border-amber-300 rounded-full"
           required
         >
