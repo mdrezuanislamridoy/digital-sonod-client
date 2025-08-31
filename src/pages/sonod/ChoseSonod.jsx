@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import authUser from "../../state/userState";
 
 export default function ChooseSonod() {
+  const { user } = authUser();
+
   const sonodTypes = [
     { name: "নাগরিক সনদ", path: "/choose-sonod/nagorikSonod" },
   ];
@@ -14,7 +17,10 @@ export default function ChooseSonod() {
         {sonodTypes.map((sonod, index) => (
           <Link
             key={index}
-            to={sonod.path}
+            onClick={() => {
+              user ? "" : alert("আবেদন করতে লগিন করুন");
+            }}
+            to={user ? sonod.path : "/choose-sonod"}
             className="bg-white shadow-md hover:shadow-xl p-6 rounded-2xl text-center 
                        border border-green-200 hover:border-green-400 transition-all cursor-pointer"
           >

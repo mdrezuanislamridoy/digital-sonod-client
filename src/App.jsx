@@ -12,6 +12,7 @@ import User from "./pages/profile/user/User";
 import Chairman from "./pages/profile/chairman/Chairman";
 import ChooseSonod from "./pages/sonod/ChoseSonod";
 import NagorikSonod from "./pages/sonod/section/NagorikSonod";
+import SonodPDFPage from "./pages/profile/chairman/section/SonodPDFPage";
 
 export default function App() {
   const { profile, user, logout } = authUser();
@@ -63,10 +64,20 @@ export default function App() {
               }
             ></Route>
             <Route path="/choose-sonod" element={<ChooseSonod />}></Route>
-            <Route
-              path="/choose-sonod/nagorikSonod"
-              element={<NagorikSonod />}
-            />
+            {user ? (
+              <>
+                <Route
+                  path="/choose-sonod/nagorikSonod"
+                  element={<NagorikSonod />}
+                />
+                <Route
+                  path="/choose-sonod/:id/pdf"
+                  element={<SonodPDFPage />}
+                />
+              </>
+            ) : (
+              ""
+            )}
           </>
         </Routes>
       </BrowserRouter>

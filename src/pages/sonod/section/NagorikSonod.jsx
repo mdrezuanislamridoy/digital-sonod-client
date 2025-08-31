@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import authUser from "../../../state/userState";
 import sonodStore from "../../../state/sonodStore";
+import { useNavigate } from "react-router-dom";
 
 export default function NagorikSonod() {
   const { user } = authUser();
@@ -9,6 +10,7 @@ export default function NagorikSonod() {
   const [photo, setPhoto] = useState(null);
   const [loading, setLoading] = useState(false);
   const [sameAddress, setSameAddress] = useState(false);
+  const navigate = useNavigate();
 
   const { register, handleSubmit, setValue, watch } = useForm();
 
@@ -103,8 +105,7 @@ export default function NagorikSonod() {
     try {
       setLoading(true);
       const res = await applySonod(formData);
-      alert(res.message);
-      navigate("/");
+      navigate("/chose-sonod");
     } catch (error) {
       alert("Failed to apply");
     } finally {
