@@ -26,16 +26,11 @@ const authUser = create((set) => {
       }
     },
 
-    createUser: async (name, email, password, verificationCode) => {
+    createUser: async (formData) => {
       set({ loading: true, error: null });
 
       try {
-        let res = await axiosInstance.post("/user/register", {
-          name,
-          email,
-          password,
-          verificationCode,
-        });
+        let res = await axiosInstance.post("/user/register", formData);
         set({
           user: res.data.user,
           token: res.data.token,

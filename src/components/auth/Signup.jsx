@@ -35,13 +35,7 @@ export default function Signup() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createUser(
-      formData.name,
-      formData.email,
-      formData.password,
-      formData.verificationCode,
-      formData.role
-    );
+    createUser(formData);
   };
 
   const sendVerificationCode = async (e) => {
