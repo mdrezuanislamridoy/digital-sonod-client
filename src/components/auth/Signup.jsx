@@ -145,12 +145,16 @@ export default function Signup() {
         <select
           name="role"
           id="role"
+          value={formData.role}
+          onChange={handleChange}
           className="text-slate-600 bg-white py-2 px-4 outline-none border border-amber-300 rounded-full"
           required
         >
-          <option value={formData.role}>user</option>
-          <option value={formData.role}>chairman </option>
+          <option value="">Select role</option>
+          <option value="user">User</option>
+          <option value="chairman">Chairman</option>
         </select>
+
         <button
           type="submit"
           disabled={formData.verificationCode ? false : true}
