@@ -9,6 +9,7 @@ export default function Signup() {
     email: "",
     password: "",
     verificationCode: "",
+    role: "",
   });
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
@@ -38,7 +39,8 @@ export default function Signup() {
       formData.name,
       formData.email,
       formData.password,
-      formData.verificationCode
+      formData.verificationCode,
+      formData.role
     );
   };
 
@@ -137,7 +139,18 @@ export default function Signup() {
           onChange={handleChange}
           value={formData.password}
           className="outline-none border-2 border-cyan-200 rounded-full py-1 px-2 "
+          required
         />
+        <label htmlFor="role">Select Your Role</label>
+        <select
+          name="role"
+          id="role"
+          className="text-slate-600 bg-white py-2 px-4 outline-none border border-amber-300 rounded-full"
+          required
+        >
+          <option value="user">user</option>
+          <option value="chairman">chairman </option>
+        </select>
         <button
           type="submit"
           disabled={formData.verificationCode ? false : true}
@@ -152,7 +165,7 @@ export default function Signup() {
         </p>
         <p className="text-center">
           Don't have an account{" "}
-          <Link className="text-cyan-400 font-medium" to={"/"}>
+          <Link className="text-cyan-400 font-medium" to={"/login"}>
             Login
           </Link>
         </p>

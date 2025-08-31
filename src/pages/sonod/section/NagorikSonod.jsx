@@ -104,8 +104,8 @@ export default function NagorikSonod() {
 
     try {
       setLoading(true);
-      const res = await applySonod(formData);
-      navigate("/chose-sonod");
+      await applySonod(formData);
+      navigate("/choose-sonod");
     } catch (error) {
       alert("Failed to apply");
     } finally {
