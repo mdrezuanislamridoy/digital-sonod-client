@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import sonodStore from "../../../../state/sonodStore";
 import { useEffect, useRef, useState } from "react";
-import { useReactToPrint } from "react-to-print";
+import html2pdf from "html2pdf.js";
 
 export default function SonodPDFPage() {
   const { id } = useParams();
@@ -17,30 +17,64 @@ export default function SonodPDFPage() {
     fetchSonod();
   }, [id, getSonodById]);
 
-  const handlePrint = useReactToPrint({
-    content: () => printRef.current,
-    documentTitle: sonod?.personalInfo.fullName + "_Sonod",
-  });
+  const handleSave = () => {
+    const element = printRef.current;
+    html2pdf()
+      .set({
+        margin: 0,
+        filename: "sonod.pdf",
+        image: { type: "jpeg", quality: 1 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: "px", format: [794, 1123], orientation: "portrait" },
+      })
+      .from(element)
+      .save();
+  };
 
   if (!sonod) return <h2 className="text-center mt-6">Loading Sonod...</h2>;
 
   return (
-    <div className="flex flex-col items-center p-6 bg-gray-100 min-h-screen">
-      {/* Attach ref directly to plain div */}
+    <div className="flex flex-col items-center bg-gray-100 min-h-screen p-6">
+      {/* Full A4 size fixed container */}
       <div
         ref={printRef}
-        className="w-[794px] h-[1123px] bg-white border-[6px] border-gray-800 shadow-lg relative px-10 py-8"
+        style={{
+          width: "794px",
+          height: "1123px",
+          transform: "scale(0.9)", // shrink content (0.8 = 80%, 0.9 = 90%)
+          transformOrigin: "top left", // scale from top left
+          backgroundColor: "#fff",
+          padding: "30px",
+          boxSizing: "border-box",
+        }}
       >
-        <div className="text-center border-b-4 border-gray-800 pb-4">
-          <h1 className="text-3xl font-bold uppercase">
+        {/* Header */}
+        <div
+          style={{
+            textAlign: "center",
+            borderBottom: "4px solid #000",
+            paddingBottom: "10px",
+          }}
+        >
+          <h1 style={{ fontSize: "28px", fontWeight: "bold" }}>
             গণপ্রজাতন্ত্রী বাংলাদেশ
           </h1>
-          <h2 className="text-xl font-semibold mt-1">Union Parishad Sonod</h2>
-          <p className="text-sm text-gray-600">Issued by Chairman</p>
+          <h2 style={{ fontSize: "20px", fontWeight: "600", marginTop: "5px" }}>
+            Union Parishad Sonod
+          </h2>
+          <p style={{ fontSize: "14px", color: "#444" }}>Issued by Chairman</p>
         </div>
 
-        <div className="mt-8 grid grid-cols-3 gap-4">
-          <div className="col-span-2 space-y-2">
+        {/* Info Section */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "2fr 1fr",
+            marginTop: "30px",
+            gap: "20px",
+          }}
+        >
+          <div style={{ fontSize: "16px", lineHeight: "24px" }}>
             <p>
               <b>Name:</b> {sonod.personalInfo.fullName}
             </p>
@@ -61,17 +95,34 @@ export default function SonodPDFPage() {
               <b>Sonod Type:</b> {sonod.type}
             </p>
           </div>
-          <div className="flex justify-end">
+
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <img
               src={sonod.photo}
               alt="User"
-              className="w-28 h-28 object-cover border-2 border-gray-400 rounded"
+              style={{
+                width: "100px",
+                height: "100px",
+                border: "2px solid #555",
+                objectFit: "cover",
+              }}
             />
           </div>
         </div>
 
-        <div className="mt-6">
-          <h3 className="font-semibold underline mb-2">Address</h3>
+        {/* Address */}
+        <div
+          style={{ marginTop: "30px", fontSize: "15px", lineHeight: "22px" }}
+        >
+          <h3
+            style={{
+              fontWeight: "600",
+              textDecoration: "underline",
+              marginBottom: "8px",
+            }}
+          >
+            Address
+          </h3>
           <p>
             <b>Present:</b> {sonod.presentAddress?.village},{" "}
             {sonod.presentAddress?.union}, {sonod.presentAddress?.upazila},{" "}
@@ -84,7 +135,15 @@ export default function SonodPDFPage() {
           </p>
         </div>
 
-        <div className="mt-8 text-justify leading-relaxed text-[#4a4a4a]">
+        {/* Body */}
+        <div
+          style={{
+            marginTop: "40px",
+            fontSize: "15px",
+            lineHeight: "26px",
+            textAlign: "justify",
+          }}
+        >
           <p>
             This is to certify that <b>{sonod.personalInfo.fullName}</b>,
             son/daughter of <b>{sonod.personalInfo.fatherName}</b> and{" "}
@@ -97,24 +156,37 @@ export default function SonodPDFPage() {
           </p>
         </div>
 
-        <div className="absolute bottom-16 left-0 right-0 flex justify-between px-10">
+        {/* Footer */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: "60px",
+            left: "40px",
+            right: "40px",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <div>
-            <p className="text-sm text-gray-600">Issued On:</p>
-            <p className="font-semibold">{new Date().toLocaleDateString()}</p>
+            <p style={{ fontSize: "13px", color: "#555" }}>Issued On:</p>
+            <p style={{ fontWeight: "600" }}>
+              {new Date().toLocaleDateString()}
+            </p>
           </div>
-          <div className="text-center">
-            <p className="mb-12">_____________________</p>
-            <p className="font-semibold">Chairman</p>
-            <p className="text-sm text-gray-600">Union Parishad</p>
+          <div style={{ textAlign: "center" }}>
+            <p style={{ marginBottom: "60px" }}>_____________________</p>
+            <p style={{ fontWeight: "600" }}>Chairman</p>
+            <p style={{ fontSize: "13px", color: "#555" }}>Union Parishad</p>
           </div>
         </div>
       </div>
 
+      {/* Only button outside PDF */}
       <button
-        onClick={handlePrint}
+        onClick={handleSave}
         className="mt-6 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg px-6 py-2 shadow-md"
       >
-        Print / Save PDF
+        Save PDF
       </button>
     </div>
   );

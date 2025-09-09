@@ -47,13 +47,13 @@ const authUser = create((set) => {
       }
     },
 
-    login: async (email, password) => {
+    login: async (formData) => {
       set({ loading: true, error: null });
 
       try {
         const res = await axiosInstance.post("/user/login", {
-          email,
-          password,
+          email: formData.email,
+          password: formData.password,
         });
         set({
           user: res.data.user,
@@ -121,9 +121,15 @@ const authUser = create((set) => {
 
         set({ loading: true, error: null });
 
-        const res = await axiosInstance.put("/user/updateProfilePicture", {
+        const res = await axiosInstance.put(
+          "/user/updateProfilePicture",
           formData,
-        });
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
         set({
           user: res.data.user,
           loading: false,

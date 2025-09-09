@@ -29,7 +29,7 @@ export default function Login() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(formData.email, formData.password);
+    login(formData);
   };
 
   return (

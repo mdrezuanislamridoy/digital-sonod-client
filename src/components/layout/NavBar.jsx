@@ -25,10 +25,8 @@ export default function NavBar({ user, logout }) {
   };
 
   const handleLogout = async () => {
-    const res = await logout();
-    if (res.success) {
-      console.log("Logged Out Successfully");
-    }
+    await logout();
+    navigate("/");
   };
 
   const NavLinkItem = ({ name, to }) => (

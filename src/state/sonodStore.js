@@ -7,7 +7,11 @@ const sonodStore = create((set) => {
     myAllSonod: [],
     applySonod: async (data) => {
       try {
-        const res = await axiosInstance.post("/sonod/create-sonod", data);
+        const res = await axiosInstance.post("/sonod/create-sonod", data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
 
         return res.data;
       } catch (error) {
